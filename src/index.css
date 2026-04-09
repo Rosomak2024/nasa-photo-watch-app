@@ -1,9 +1,29 @@
-:root {
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
+body{
+  font-family: 'Times New Roman', Times, serif;
+  background: url(/pexels-pixabay-87009.jpg);
+  color:white;
+}
 
+#root{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+
+}
+
+img {
+  max-width: 80%;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+img:hover {
+  transform: scale(1.05);
+}
