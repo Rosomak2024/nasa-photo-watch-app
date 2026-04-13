@@ -16,13 +16,26 @@ export default function App() {
     fetchRandom();
   }, []);
 
+  if (!photo) {
+    return <p>Loading...</p>;
+  }
+
   console.log(photo);
   return (
     <>
-      <div>
-        <button onClick={fetchRandom}>Next</button>
-        {photo && <img src={photo.url} alt="api_photo"></img>}
+      <div className="display_api_container">
+        {photo.media_type === "image" ? (
+          <img src={photo.url} alt="api_photo" />
+        ) : (
+          <iframe
+            src={photo.url}
+            title={photo.title}
+            width="500"
+            height="300"
+          />
+        )}
       </div>
+      <button onClick={fetchRandom}>Next</button>
     </>
   );
 }
