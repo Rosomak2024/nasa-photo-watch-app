@@ -4,16 +4,33 @@ export default function App() {
   const [photo, setPhoto] = useState(null);
 
   function fetchRandom() {
+    const controller = new AbortController();
+
+    const timeoutId = setTimeout(() => {
+      controller.abort();
+    }, 5000);
+
     fetch(
-      "https://api.nasa.gov/planetary/apod?api_key=RQlqLMnsMGXA1tDO50bIqQ2Sk30xXKVWmE9xNekJ&count=1"
+      "https://api.nasa.gov/planetary/apod?api_key=RQlqLMnsMGXA1tDO50bIqQ2Sk30xXKVWmE9xNekJ&count=1",
+      { signal: controller.signal }
     )
       .then((res) => res.json())
-      .then((data) => setPhoto(data[0]))
-      .catch((err) => console.error(err));
+      .then((data) => {
+        clearTimeout(timeoutId);
+        setPhoto(data[0]);
+      })
+      .catch((err) => {
+        if (err.name === "AbortError") {
+          console.log("fetch anulowany");
+        } else {
+          console.error(err);
+        }
+      });
   }
 
   useEffect(() => {
     fetchRandom();
+    console.log("start fetch");
   }, []);
 
   if (!photo) {
