@@ -37,15 +37,29 @@ export default function App() {
             />
           )}
           <h1>{photo.title}</h1>
-          <button onClick={fetchRandom}>Next</button>
+          <button
+            onClick={() => {
+              setPhoto(null);
+              fetchRandom;
+            }}
+          >
+            Next
+          </button>
         </div>
       </>
     );
-  } else if (!photo) {
+  } else {
     return (
       <div>
         <p>Loading...</p>
-        <button onClick={fetchRandom}>Reset Api fetch</button>
+        <button
+          onClick={() => {
+            setPhoto(null);
+            fetchRandom;
+          }}
+        >
+          Reset
+        </button>
       </div>
     );
   }
