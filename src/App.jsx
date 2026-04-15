@@ -55,7 +55,7 @@ export default function App() {
         <button
           onClick={() => {
             setPhoto(null);
-            fetchRandom;
+            fetchRandom();
           }}
         >
           Reset
