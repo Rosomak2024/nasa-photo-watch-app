@@ -2,24 +2,39 @@ import { useState, useEffect } from "react";
 
 export default function App() {
   const [photo, setPhoto] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  function fetchRandom() {
-    fetch(
-      "https://api.nasa.gov/planetary/apod?api_key=RQlqLMnsMGXA1tDO50bIqQ2Sk30xXKVWmE9xNekJ&count=1"
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setPhoto(data[0]);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+  async function fetchRandom() {
+    try {
+      setLoading(true);
+      const res = await fetch(
+        "https://api.nasa.gov/planetary/apod?api_key=RQlqLMnsMGXA1tDO50bIqQ2Sk30xXKVWmE9xNekJ&count=1" /// dodaj ilosć losowanych obiektów
+      );
+      const data = await res.json();
+      setPhoto(data[0]);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
     fetchRandom();
     console.log("start fetch");
   }, []);
+
+  // chcemy zrobić inputa w którym pytamy się użytkownika ile chce wylosować zdjęc z serwera API
+  // potem te zdjęcia pobieramy i wyświetlamy na stronnie dodaj css zxawijanie itp.
+
+  if (loading) {
+    return (
+      <div>
+        <p>Loading...</p>
+        <button onClick={fetchRandom}>Reset Connection to API</button>
+      </div>
+    );
+  }
 
   if (photo) {
     console.log(photo);
@@ -39,28 +54,13 @@ export default function App() {
           <h1>{photo.title}</h1>
           <button
             onClick={() => {
-              setPhoto(null);
-              fetchRandom;
+              fetchRandom(); // here was a big bug
             }}
           >
             Next
           </button>
         </div>
       </>
-    );
-  } else {
-    return (
-      <div>
-        <p>Loading...</p>
-        <button
-          onClick={() => {
-            setPhoto(null);
-            fetchRandom();
-          }}
-        >
-          Reset
-        </button>
-      </div>
     );
   }
 }
