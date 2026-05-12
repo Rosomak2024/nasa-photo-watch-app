@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 
+
 export default function App() {
+
+  const [number, setNumber] = useState(1);
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [number, setNumber] = useState(1);
+
 
   async function fetchRandom() {
     try {
@@ -13,6 +17,7 @@ export default function App() {
       );
       const data = await res.json();
       setPhotos(data);
+      console.log(data)
     } catch (err) {
       console.error(err);
     } finally {
@@ -30,21 +35,17 @@ export default function App() {
 
   return (
     <>
-      <input
-        type="number"
-        min={1}
-        max={5}
-        value={number}
-        onChange={(e) => setNumber(Number(e.target.value))}
-      />
+      
 
-      <button onClick={fetchRandom}>Pobierz</button>
 
       <div className="display_api_container">
         {photos.map((photo) => (
-          <div key={photo.url}>
+          <div className="card" key={photo.url}>
             {photo.media_type === "image" ? (
-              <img src={photo.url} alt="api_photo" />
+              <div>
+                <h1>{photo.title}</h1>
+                <img src={photo.url} alt="api_photo" onClick={() => setSelectedPhoto(photo)} />
+              </div>
             ) : (
               <iframe
                 src={photo.url}
@@ -53,10 +54,29 @@ export default function App() {
                 height="300"
               />
             )}
-            <h2>{photo.title}</h2>
+           
           </div>
         ))}
       </div>
+      {selectedPhoto && (
+  <div className="modal" onClick={() => setSelectedPhoto(null)}>
+    <h2>{selectedPhoto.title}</h2>   /// dodać style
+    <img
+      src={selectedPhoto.url}
+      alt="big"
+      onClick={(e) => e.stopPropagation()}
+    />
+    <p>{selectedPhoto.explanation}</p>  /// dodać style   
+  </div>
+)}
+<input
+        type="number"
+        min={1}
+        max={5}
+        value={number}
+        onChange={(e) => setNumber(Number(e.target.value))}
+      />
+      <button onClick={fetchRandom}>Pobierz</button>
     </>
   );
 }
