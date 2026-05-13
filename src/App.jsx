@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-
+import PhotoCard from "./components/PhotoCard";
+import Modal from "./components/Modal";
+const API_KEY = import.meta.env.VITE_NASA_API_KEY;
 
 export default function App() {
 
@@ -7,19 +9,21 @@ export default function App() {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
 
   async function fetchRandom() {
     try {
+      setError(null);
       setLoading(true);
       const res = await fetch(
-        `https://api.nasa.gov/planetary/apod?api_key=RQlqLMnsMGXA1tDO50bIqQ2Sk30xXKVWmE9xNekJ&count=${number}`
+        `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}&count=${number}`
       );
       const data = await res.json();
       setPhotos(data);
-      console.log(data)
     } catch (err) {
       console.error(err);
+      setError("Something went wrong. Try again.");
     } finally {
       setLoading(false);
     }
@@ -30,44 +34,25 @@ export default function App() {
   }, []);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <div className="loader"></div>;
   }
 
   return (
     <>
-      
-
-
       <div className="display_api_container">
-        {photos.map((photo) => (
-          <div className="card" key={photo.url}>
-            {photo.media_type === "image" ? (
-              <div>
-                <h1>{photo.title}</h1>
-                <img src={photo.url} alt="api_photo" onClick={() => setSelectedPhoto(photo)} />
-              </div>
-            ) : (
-              <iframe
-                src={photo.url}
-                title={photo.title}
-                width="500"
-                height="300"
-              />
-            )}
-           
-          </div>
-        ))}
+      {photos.map((photo) => (
+    <PhotoCard
+      key={photo.url}
+      photo={photo}
+      setSelectedPhoto={setSelectedPhoto}
+    />
+  ))}
       </div>
       {selectedPhoto && (
-  <div className="modal" onClick={() => setSelectedPhoto(null)}>
-    <h2>{selectedPhoto.title}</h2>   /// dodać style
-    <img
-      src={selectedPhoto.url}
-      alt="big"
-      onClick={(e) => e.stopPropagation()}
-    />
-    <p>{selectedPhoto.explanation}</p>  /// dodać style   
-  </div>
+  <Modal
+    selectedPhoto={selectedPhoto}
+    setSelectedPhoto={setSelectedPhoto}
+  />
 )}
 <input
         type="number"
@@ -77,6 +62,7 @@ export default function App() {
         onChange={(e) => setNumber(Number(e.target.value))}
       />
       <button onClick={fetchRandom}>Pobierz</button>
+      {error && <p className="error">{error}</p>}
     </>
   );
 }
