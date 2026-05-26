@@ -9,7 +9,7 @@ function App() {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   if (loading) {
-    return <h1>Loading...</h1>;
+    return <h1>{loading && <Spinner />}</h1>;
   }
 
   if (error) {
