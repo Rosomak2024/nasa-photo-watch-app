@@ -19,7 +19,7 @@ export default function useFetchPhotos() {
 
         // if resposne not ok  throw error
         if (!res.ok) {
-          throw new Error("Failed to fetch photos");
+          throw new Error(`NASA API responded with ${res.status}`);
         }
 
         const data = await res.json();

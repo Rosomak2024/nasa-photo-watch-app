@@ -6,8 +6,13 @@ import Spinner from "./components/Spinner";
 
 function App() {
   const { photos, loading, error } = useFetchPhotos();
-
   const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+
+
+  const filteredPhotos = photos.filter((photo) =>
+    photo.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   if (loading) {
     return <Spinner />;
@@ -19,8 +24,17 @@ function App() {
 
   return (
     <main>
+      <input
+       type="text"
+       placeholder="Search NASA photos..."
+       value={searchTerm}
+       onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      {filteredPhotos.length === 0 && (
+      <h2>No photos found.</h2>
+      )}
       <div className="gallery">
-        {photos.map((photo) => (
+        {filteredPhotos.map((photo) => (
           <PhotoCard
             key={photo.date}
             photo={photo}

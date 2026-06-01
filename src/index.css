@@ -108,6 +108,17 @@ body {
   max-width: 1200px;
 }
 
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .modal h2 {
+    font-size: 1.2rem;
+  }
+}
+
 .head_text {
   position: relative;
 }
