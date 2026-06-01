@@ -24,7 +24,6 @@ export default function useFetchPhotos() {
 
         const data = await res.json();
 
-        // defensive check if no array throw error
         if (!Array.isArray(data)) {
           throw new Error("Invalid data format");
         }
