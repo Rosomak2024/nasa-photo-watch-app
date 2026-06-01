@@ -2,6 +2,7 @@ import { useState } from "react";
 import PhotoCard from "./components/PhotoCard";
 import Modal from "./components/Modal";
 import useFetchPhotos from "./hooks/useFetchPhotos";
+import Spinner from "./components/Spinner";
 
 function App() {
   const { photos, loading, error } = useFetchPhotos();
@@ -9,7 +10,7 @@ function App() {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   if (loading) {
-    return <h1>{loading && <Spinner />}</h1>;
+    return <Spinner />;
   }
 
   if (error) {
