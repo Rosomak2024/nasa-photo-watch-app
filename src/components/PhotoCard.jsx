@@ -1,22 +1,24 @@
 export default function PhotoCard({ photo, onClick }) {
   return (
-    <div className="card">
+    <div className="photo-card">
       {photo.media_type === "image" ? (
-        <div className="head_text">
-          <h2>{photo.title}</h2>
+        <div className="photo-content">
+          <h2 className="photo-title">{photo.title}</h2>
 
           <img
+            className="photo-image"
             src={photo.url}
             alt={photo.title}
             onClick={onClick}
           />
 
-          <p className="text_on_image">
+          <p className="photo-hint">
             Click photo to see explanation...
           </p>
         </div>
       ) : (
         <iframe
+          className="photo-video"
           src={photo.url}
           title={photo.title}
           width="500"

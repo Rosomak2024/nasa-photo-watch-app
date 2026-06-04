@@ -3,18 +3,25 @@ export default function Modal({ photo, onClose }) {
 
   return (
     <div
-      className="modal"
+      className="modal-overlay"
       onClick={onClose}
     >
-      <h2>{photo.title}</h2>
-
-      <img
-        src={photo.url}
-        alt={photo.title}
+      <div
+        className="modal-content"
         onClick={(e) => e.stopPropagation()}
-      />
+      >
+        <h2 className="modal-title">{photo.title}</h2>
 
-      <p>{photo.explanation}</p>
+        <img
+          className="modal-image"
+          src={photo.url}
+          alt={photo.title}
+        />
+
+        <p className="modal-description">
+          {photo.explanation}
+        </p>
+      </div>
     </div>
   );
 }

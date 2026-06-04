@@ -11,13 +11,12 @@ export default function useFetchPhotos() {
         setLoading(true);
         setError("");
 
+        const apiKey = import.meta.env.VITE_NASA_API_KEY;
+
         const res = await fetch(
-          `https://api.nasa.gov/planetary/apod?api_key=${
-            import.meta.env.VITE_NASA_API_KEY
-          }&count=12`
+          `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&count=12`
         );
 
-        // if resposne not ok  throw error
         if (!res.ok) {
           throw new Error(`NASA API responded with ${res.status}`);
         }

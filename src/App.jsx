@@ -23,16 +23,19 @@ function App() {
   }
 
   return (
-    <main>
+    <main className="app-container">
       <input
-       type="text"
-       placeholder="Search NASA photos..."
-       value={searchTerm}
-       onChange={(e) => setSearchTerm(e.target.value)}
+        className="search-input"
+        type="text"
+        placeholder="Search NASA photos..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
       />
+  
       {filteredPhotos.length === 0 && (
-      <h2>No photos found.</h2>
+        <h2 className="empty-state">No photos found.</h2>
       )}
+  
       <div className="gallery">
         {filteredPhotos.map((photo) => (
           <PhotoCard
@@ -42,7 +45,7 @@ function App() {
           />
         ))}
       </div>
-
+  
       {selectedPhoto && (
         <Modal
           photo={selectedPhoto}
