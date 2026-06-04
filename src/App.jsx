@@ -5,7 +5,7 @@ import useFetchPhotos from "./hooks/useFetchPhotos";
 import Spinner from "./components/Spinner";
 
 function App() {
-  const { photos, loading, error } = useFetchPhotos();
+  const { photos, loading, error,fetchAgain } = useFetchPhotos();
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -15,7 +15,16 @@ function App() {
   );
 
   if (loading) {
-    return <Spinner />;
+    return (
+      <div className="error-message">
+        <h2>NASA API is currently unavailable.</h2>
+        <p>{error}</p>
+  
+        <button className="retry-button" onClick={fetchAgain}>
+          Try Again
+        </button>
+      </div>
+    );
   }
 
   if (error) {

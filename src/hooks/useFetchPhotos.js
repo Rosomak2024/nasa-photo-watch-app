@@ -4,6 +4,7 @@ export default function useFetchPhotos() {
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const[retry,setRetry] = useState(0)
 
   useEffect(() => {
     async function fetchPhotos() {
@@ -36,11 +37,16 @@ export default function useFetchPhotos() {
     }
 
     fetchPhotos();
-  }, []);
+  }, [retry]);
+
+  const fetchAgain = () => {
+    setRetry((prev) => prev + 1);
+  };
 
   return {
     photos,
     loading,
     error,
+    fetchAgain,
   };
 }
