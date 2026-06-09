@@ -15,6 +15,10 @@ function App() {
   );
 
   if (loading) {
+    return <Spinner />;
+  }
+  
+  if (error) {
     return (
       <div className="error-message">
         <h2>NASA API is currently unavailable.</h2>
@@ -27,9 +31,6 @@ function App() {
     );
   }
 
-  if (error) {
-    return <h1>{error}</h1>;
-  }
 
   return (
     <main className="app-container">
