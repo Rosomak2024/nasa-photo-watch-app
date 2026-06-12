@@ -15,7 +15,7 @@ export default function useFetchPhotos() {
         const apiKey = import.meta.env.VITE_NASA_API_KEY;
 
         const res = await fetch(
-          `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&count=12`
+          `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&count=6`
         );
 
         if (!res.ok) {
