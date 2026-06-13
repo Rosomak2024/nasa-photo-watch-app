@@ -1,16 +1,77 @@
-# React + Vite
+# NASA Photo Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React application that displays random astronomy photos from NASA's Astronomy Picture of the Day (APOD) API.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+* Fetches random photos from NASA APOD API
+* Displays astronomy images with titles and descriptions
+* Loading and error states handling
+* Refresh button to load a new set of photos
+* Responsive design for desktop and mobile devices
+* Custom React hook for data fetching
 
-## React Compiler
+## Technologies
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* React
+* JavaScript (ES6+)
+* Vite
+* CSS
+* NASA APOD API
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Clone the repository:
+
+```bash
+git clone <repository-url>
+```
+
+Navigate to the project folder:
+
+```bash
+cd nasa-photo-explorer
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env` file in the root directory:
+
+```env
+VITE_NASA_API_KEY=your_nasa_api_key
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+## Environment Variables
+
+This project requires a NASA API key.
+
+You can get a free API key from:
+https://api.nasa.gov
+
+## What I Practiced
+
+* Working with REST APIs
+* Async JavaScript and Fetch API
+* Custom React Hooks
+* State management with React Hooks
+* Error handling
+* Environment variables in Vite
+* Component-based architecture
+
+## Live Demo
+
+https://keen-sherbet-61933d.netlify.app/
+
+## Screenshots
+
+will be added
